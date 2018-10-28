@@ -3,6 +3,8 @@
 This is a custom [Pygments](http://pygments.org/) lexer for coloring the output
 of PostgreSQL's `EXPLAIN ANALYZE` command.
 
+See [the tests output](test/test.pdf) for an example of how it looks.
+
 ## Limitations
 
 This has only been tested for Latex output, with only one Pygments style 

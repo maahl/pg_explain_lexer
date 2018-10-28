@@ -1,0 +1,30 @@
+\documentclass{article}
+
+\usepackage{minted}
+\usemintedstyle{colorful}
+
+\newenvironment{queryplan}{
+    \VerbatimEnvironment%
+    \begin{listing}
+        \begin{minted}[frame=lines, framesep=2mm]{../pg_explain_lexer.py:PgExplainLexer -x}}{%
+        \end{minted}
+    \end{listing}
+}
+
+\begin{document}
+
+\begin{queryplan}
+                                                                  QUERY PLAN                                                                   
+-----------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Join  (cost=0.62..1351.74 rows=8893 width=302) (actual time=0.130..45.729 rows=8897 loops=1)
+   Merge Cond: (c.customerid = o.customerid)
+   ->  Index Scan using customers_pkey on customers c  (cost=0.29..845.29 rows=20000 width=268) (actual time=0.032..10.950 rows=19997 loops=1)
+   ->  Index Scan using ix_order_custid on orders o  (cost=0.29..345.29 rows=8893 width=30) (actual time=0.070..19.943 rows=8897 loops=1)
+         Filter: (netamount > '100'::numeric)
+         Rows Removed by Filter: 3103
+ Planning Time: 3.843 ms
+ Execution Time: 52.293 ms
+(8 rows)
+\end{queryplan}
+
+\end{document}
