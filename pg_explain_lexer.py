@@ -12,14 +12,15 @@ class PgExplainLexer(RegexLexer):
             (r'(\s+|:|\(|\)|ms|kB|->|\.\.)', Punctuation),
             (r'(cost=|rows=|width=|loops=|time=|actual|Memory)', Comment.Single),
             (r'(Sort Key)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
+            (r'(Sort Method)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
             (r'(Join Filter|Filter|Merge Cond)(: \()(.*?)(\))', bygroups(
                 Comment.Preproc,
                 Punctuation,
-                Name.Variable.Instance,
+                Name.Variable,
                 Punctuation,
             )),
             (r'Seq Scan on ', Keyword.Type, 'object_name'),
-            (r'(Index Scan using )(\w)( on )', bygroups(Keyword.Type, 'object_name', Keyword.Type), 'object_name'),
+            (r'(Index Scan using )(\w+(?:\.\w+)*)( on )', bygroups(Keyword.Type, Name.Variable, Keyword.Type), 'object_name'),
             (r'(Sort Method|Join Filter|Rows Removed by Join Filter|Rows Removed by Filter|Planning Time|Execution Time)', Comment.Preproc),
             (r'(Sort|Nested Loop|Seq Scan on|Merge Join|Index Scan using)', Keyword.Type),
             # strings
@@ -32,7 +33,7 @@ class PgExplainLexer(RegexLexer):
         ],
         'object_name': [
             # matches possibly schema-qualified table and column names
-            (r'\w+(\.\w+)*( \w+)?', Name.Variable.Instance),
+            (r'\w+(\.\w+)*( \w+)?', Name.Variable),
             (r'', Punctuation, '#pop'),
         ],
     }
