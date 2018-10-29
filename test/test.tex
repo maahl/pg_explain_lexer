@@ -14,7 +14,7 @@
 \begin{document}
 
 \begin{queryplan}
-                                                                  QUERY PLAN                                                                   
+                                                                  QUERY PLAN
 -----------------------------------------------------------------------------------------------------------------------------------------------
  Merge Join  (cost=0.62..1351.74 rows=8893 width=302) (actual time=0.130..45.729 rows=8897 loops=1)
    Merge Cond: (c.customerid = o.customerid)
@@ -24,6 +24,23 @@
          Rows Removed by Filter: 3103
  Planning Time: 3.843 ms
  Execution Time: 52.293 ms
+\end{queryplan}
+
+\begin{queryplan}
+                                                    QUERY PLAN
+-----------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=7224521.31..7224543.54 rows=8893 width=302) (actual time=111918.890..111919.623 rows=8897 loops=1)
+   Sort Key: c.customerid
+   Sort Method: quicksort  Memory: 2817kB
+   ->  Nested Loop  (cost=0.00..7223938.00 rows=8893 width=302) (actual time=205.686..111816.823 rows=8897 loops=1)
+         Join Filter: (c.customerid = o.customerid)
+         Rows Removed by Join Filter: 177931103
+         ->  Seq Scan on customers c  (cost=0.00..688.00 rows=20000 width=268) (actual time=8.168..31.380 rows=20000 loops=1)
+         ->  Seq Scan on orders o  (cost=0.00..250.00 rows=8893 width=30) (actual time=0.006..4.604 rows=8897 loops=20000)
+               Filter: (netamount > '100'::numeric)
+               Rows Removed by Filter: 3103
+ Planning Time: 0.777 ms
+ Execution Time: 111925.339 ms
 \end{queryplan}
 
 \end{document}

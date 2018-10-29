@@ -32,6 +32,7 @@ class PgExplainLexer(RegexLexer):
         ],
         'object_name': [
             # matches possibly schema-qualified table and column names
-            (r'\w+(\.\w+)*', Name.Variable.Instance),
+            (r'\w+(\.\w+)*( \w+)?', Name.Variable.Instance),
+            (r'', Punctuation, '#pop'),
         ],
     }
