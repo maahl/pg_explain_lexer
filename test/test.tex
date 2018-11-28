@@ -223,4 +223,18 @@
  Execution Time: 76.834 ms
 \end{queryplan}
 
+\begin{queryplan}{never executed node}
+                                                              QUERY PLAN
+---------------------------------------------------------------------------------------------------------------------------------------
+ Nested Loop  (cost=0.57..4.62 rows=1 width=4) (actual time=0.046..0.046 rows=0 loops=1)
+   ->  Index Only Scan using customers_pkey on customers c  (cost=0.29..2.31 rows=1 width=4) (actual time=0.045..0.045 rows=0 loops=1)
+         Index Cond: (customerid = 1000000)
+         Heap Fetches: 0
+   ->  Index Only Scan using ix_order_custid on orders o  (cost=0.29..2.30 rows=1 width=4) (never executed)
+         Index Cond: (customerid = 1000000)
+         Heap Fetches: 0
+ Planning Time: 0.152 ms
+ Execution Time: 0.161 ms
+\end{queryplan}
+
 \end{document}
