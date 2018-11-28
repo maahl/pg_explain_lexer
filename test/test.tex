@@ -1,7 +1,7 @@
 \documentclass{article}
 
 \usepackage[margin=0.5cm]{geometry}
-\paperwidth=\dimexpr \paperwidth + 1cm\relax
+\paperwidth=\dimexpr \paperwidth + 2cm\relax
 \usepackage{minted}
 \usemintedstyle{colorful}
 
@@ -72,6 +72,15 @@
    Rows Removed by Filter: 19224
  Planning Time: 0.233 ms
  Execution Time: 11.107 ms
+\end{queryplan}
+
+\begin{queryplan}{limit}
+                                                  QUERY PLAN
+--------------------------------------------------------------------------------------------------------------
+ Limit  (cost=0.00..0.18 rows=10 width=30) (actual time=0.033..0.041 rows=10 loops=1)
+   ->  Seq Scan on orders  (cost=0.00..220.00 rows=12000 width=30) (actual time=0.030..0.034 rows=10 loops=1)
+ Planning Time: 0.154 ms
+ Execution Time: 0.414 ms
 \end{queryplan}
 
 \end{document}
