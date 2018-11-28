@@ -13,12 +13,7 @@ class PgExplainLexer(RegexLexer):
             (r'(cost=|rows=|width=|loops=|time=|actual|Memory Usage|Memory|Buckets|Batches)', Comment.Single),
             (r'(Sort Key)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
             (r'(Sort Method)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
-            (r'(Join Filter|Filter|Merge Cond|Hash Cond|Index Cond)(: \()([^\n]*)(\))', bygroups(
-                Comment.Preproc,
-                Punctuation,
-                Name.Variable,
-                Punctuation,
-            )),
+            (r'(Join Filter|Filter|Merge Cond|Hash Cond|Index Cond)(: )', bygroups(Comment.Preproc, Punctuation), 'predicate'),
             (r'Seq Scan on ', Keyword.Type, 'object_name'),
             (r'(Index Scan using )(\w+(?:\.\w+)*)( on )', bygroups(Keyword.Type, Name.Variable, Keyword.Type), 'object_name'),
             (r'(Sort Method|Join Filter|Rows Removed by Join Filter|Rows Removed by Filter|Planning Time|Execution Time)', Comment.Preproc),
@@ -36,4 +31,10 @@ class PgExplainLexer(RegexLexer):
             (r'\w+(\.\w+)*( \w+)?', Name.Variable),
             (r'', Punctuation, '#pop'),
         ],
+        'predicate': [
+            # if predicate is parenthesized, mark parens as punctuation
+            (r'(\()([^\n]*)(\))', bygroups(Punctuation, Name.Variable, Punctuation), '#pop'),
+            # otherwise color until newline
+            (r'[^\n]*', Name.Variable, '#pop'),
+        ]
     }
