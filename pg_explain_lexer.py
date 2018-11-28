@@ -15,9 +15,11 @@ class PgExplainLexer(RegexLexer):
             (r'(Sort Method)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
             (r'(Join Filter|Filter|Merge Cond|Hash Cond|Index Cond)(: )', bygroups(Comment.Preproc, Punctuation), 'predicate'),
             (r'Seq Scan on ', Keyword.Type, 'object_name'),
-            (r'(Index Scan using )(\w+(?:\.\w+)*)( on )', bygroups(Keyword.Type, Name.Variable, Keyword.Type), 'object_name'),
-            (r'(Sort Method|Join Filter|Rows Removed by Join Filter|Rows Removed by Filter|Planning Time|Execution Time)', Comment.Preproc),
-            (r'(Sort|Nested Loop Left Join|Nested Loop|Seq Scan on|Merge Join|Hash Right Join|Hash Join|Hash|Index Scan using|Limit|Aggregate|Materialize)', Keyword.Type),
+            (r'(Index Scan using |Index Only Scan using )(\w+(?:\.\w+)*)( on )', bygroups(Keyword.Type, Name.Variable, Keyword.Type), 'object_name'),
+            # operator arguments or details
+            (r'(Sort Method|Join Filter|Rows Removed by Join Filter|Rows Removed by Filter|Planning Time|Execution Time|Heap Fetches)', Comment.Preproc),
+            # simple keywords
+            (r'(Sort|Nested Loop Left Join|Nested Loop|Merge Join|Hash Right Join|Hash Join|Hash|Limit|Aggregate|Materialize)', Keyword.Type),
             # strings
             (r"'(''|[^'])*'", String.Single),
             # numbers

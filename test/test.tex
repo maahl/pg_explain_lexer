@@ -194,4 +194,14 @@
  Execution Time: 33763.432 ms
 \end{queryplan}
 
+\begin{queryplan}{index only scan}
+                                                          QUERY PLAN
+-------------------------------------------------------------------------------------------------------------------------------
+ Index Only Scan using customers_pkey on customers  (cost=0.29..2.31 rows=1 width=4) (actual time=0.797..0.805 rows=1 loops=1)
+   Index Cond: (customerid = 3)
+   Heap Fetches: 1
+ Planning Time: 2.832 ms
+ Execution Time: 0.996 ms
+\end{queryplan}
+
 \end{document}
