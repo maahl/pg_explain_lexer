@@ -83,4 +83,17 @@
  Execution Time: 0.414 ms
 \end{queryplan}
 
+\begin{queryplan}{hash right join}
+                                                         QUERY PLAN
+-----------------------------------------------------------------------------------------------------------------------------
+ Hash Right Join  (cost=938.00..1189.51 rows=20000 width=298) (actual time=10.990..29.612 rows=23004 loops=1)
+   Hash Cond: (o.customerid = c.customerid)
+   ->  Seq Scan on orders o  (cost=0.00..220.00 rows=12000 width=30) (actual time=0.010..1.664 rows=12000 loops=1)
+   ->  Hash  (cost=688.00..688.00 rows=20000 width=268) (actual time=10.940..10.940 rows=20000 loops=1)
+         Buckets: 32768  Batches: 1  Memory Usage: 4108kB
+         ->  Seq Scan on customers c  (cost=0.00..688.00 rows=20000 width=268) (actual time=0.016..4.918 rows=20000 loops=1)
+ Planning Time: 0.707 ms
+ Execution Time: 32.227 ms
+\end{queryplan}
+
 \end{document}
