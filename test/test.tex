@@ -96,4 +96,13 @@
  Execution Time: 32.227 ms
 \end{queryplan}
 
+\begin{queryplan}{index cond}
+                                                     QUERY PLAN
+---------------------------------------------------------------------------------------------------------------------
+ Index Scan using orders_pkey on orders  (cost=0.29..2.30 rows=1 width=30) (actual time=1.361..1.366 rows=1 loops=1)
+   Index Cond: (orderid = 3)
+ Planning Time: 0.191 ms
+ Execution Time: 1.673 ms
+\end{queryplan}
+
 \end{document}

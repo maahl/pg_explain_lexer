@@ -13,7 +13,7 @@ class PgExplainLexer(RegexLexer):
             (r'(cost=|rows=|width=|loops=|time=|actual|Memory Usage|Memory|Buckets|Batches)', Comment.Single),
             (r'(Sort Key)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
             (r'(Sort Method)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
-            (r'(Join Filter|Filter|Merge Cond|Hash Cond)(: \()([^\n]*)(\))', bygroups(
+            (r'(Join Filter|Filter|Merge Cond|Hash Cond|Index Cond)(: \()([^\n]*)(\))', bygroups(
                 Comment.Preproc,
                 Punctuation,
                 Name.Variable,
