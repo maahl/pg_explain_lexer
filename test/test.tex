@@ -119,4 +119,23 @@
  Execution Time: 24.740 ms
 \end{queryplan}
 
+\begin{queryplan}{'originally' in hash node}
+                                                                QUERY PLAN
+-----------------------------------------------------------------------------------------------------------------------------------
+ Hash Join  (cost=142.19..179.59 rows=6 width=869) (actual time=14.330..15.259 rows=467 loops=1)
+   Hash Cond: ((s.starelid = c.oid) AND (s.staattnum = a.attnum))
+   ->  Seq Scan on pg_statistic s  (cost=0.00..32.67 rows=467 width=369) (actual time=0.023..0.133 rows=467 loops=1)
+   ->  Hash  (cost=127.58..127.58 rows=974 width=504) (actual time=14.277..14.278 rows=2922 loops=1)
+         Buckets: 4096 (originally 1024)  Batches: 1 (originally 1)  Memory Usage: 982kB
+         ->  Hash Join  (cost=22.91..127.58 rows=974 width=504) (actual time=2.217..8.851 rows=2922 loops=1)
+               Hash Cond: (a.attrelid = c.oid)
+               Join Filter: has_column_privilege(c.oid, a.attnum, 'select'::text)
+               ->  Seq Scan on pg_attribute a  (cost=0.00..96.61 rows=3061 width=238) (actual time=0.010..0.554 rows=2922 loops=1)
+               ->  Hash  (cost=17.96..17.96 rows=396 width=266) (actual time=2.190..2.190 rows=396 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 89kB
+                     ->  Seq Scan on pg_class c  (cost=0.00..17.96 rows=396 width=266) (actual time=0.023..0.944 rows=396 loops=1)
+ Planning Time: 2.122 ms
+ Execution Time: 18.919 ms
+\end{queryplan}
+
 \end{document}

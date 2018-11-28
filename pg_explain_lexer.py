@@ -10,7 +10,7 @@ class PgExplainLexer(RegexLexer):
     tokens = {
         'root': [
             (r'(\s+|:|\(|\)|ms|kB|->|\.\.)', Punctuation),
-            (r'(cost=|rows=|width=|loops=|time=|actual|Memory Usage|Memory|Buckets|Batches)', Comment.Single),
+            (r'(cost=|rows=|width=|loops=|time=|actual|Memory Usage|Memory|Buckets|Batches|originally)', Comment.Single),
             (r'(Sort Key)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
             (r'(Sort Method)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
             (r'(Join Filter|Filter|Merge Cond|Hash Cond|Index Cond)(: )', bygroups(Comment.Preproc, Punctuation), 'predicate'),
