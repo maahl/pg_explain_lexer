@@ -14,7 +14,7 @@ class PgExplainLexer(RegexLexer):
             (r'(Sort Key)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
             (r'(Sort Method)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
             (r'(Join Filter|Filter|Merge Cond|Hash Cond|Index Cond|Recheck Cond)(: )', bygroups(Comment.Preproc, Punctuation), 'predicate'),
-            (r'(Parallel )?Seq Scan on |Bitmap Heap Scan on |Bitmap Index Scan on ', Keyword.Type, 'object_name'),
+            (r'(Parallel )?Seq Scan on |(Parallel )?Bitmap Heap Scan on |Bitmap Index Scan on ', Keyword.Type, 'object_name'),
             # "using" operators
             (r'((?:Parallel )?Index (?:Only )?Scan using )(\w+(?:\.\w+)*)( on )', bygroups(Keyword.Type, Name.Variable, Keyword.Type), 'object_name'),
             # operator arguments or details

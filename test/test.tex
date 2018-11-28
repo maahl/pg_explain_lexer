@@ -291,4 +291,19 @@
  Execution Time: 5554.032 ms
 \end{queryplan}
 
+\begin{queryplan}{parallel bitmap heap scan}
+                         QUERY PLAN
+------------------------------------------------------------
+ Aggregate
+   ->  Nested Loop
+         ->  Seq Scan on tenk2
+               Filter: (thousand = 0)
+         ->  Gather
+               Workers Planned: 4
+               ->  Parallel Bitmap Heap Scan on tenk1
+                     Recheck Cond: (hundred > 1)
+                     ->  Bitmap Index Scan on tenk1_hundred
+                           Index Cond: (hundred > 1)
+\end{queryplan}
+
 \end{document}
