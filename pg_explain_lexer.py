@@ -10,10 +10,10 @@ class PgExplainLexer(RegexLexer):
     tokens = {
         'root': [
             (r'(\s+|:|\(|\)|ms|kB|->|\.\.)', Punctuation),
-            (r'(cost=|rows=|width=|loops=|time=|actual|Memory)', Comment.Single),
+            (r'(cost=|rows=|width=|loops=|time=|actual|Memory Usage|Memory|Buckets|Batches)', Comment.Single),
             (r'(Sort Key)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
             (r'(Sort Method)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
-            (r'(Join Filter|Filter|Merge Cond)(: \()(.*?)(\))', bygroups(
+            (r'(Join Filter|Filter|Merge Cond|Hash Cond)(: \()(.*?)(\))', bygroups(
                 Comment.Preproc,
                 Punctuation,
                 Name.Variable,
@@ -22,7 +22,7 @@ class PgExplainLexer(RegexLexer):
             (r'Seq Scan on ', Keyword.Type, 'object_name'),
             (r'(Index Scan using )(\w+(?:\.\w+)*)( on )', bygroups(Keyword.Type, Name.Variable, Keyword.Type), 'object_name'),
             (r'(Sort Method|Join Filter|Rows Removed by Join Filter|Rows Removed by Filter|Planning Time|Execution Time)', Comment.Preproc),
-            (r'(Sort|Nested Loop|Seq Scan on|Merge Join|Index Scan using)', Keyword.Type),
+            (r'(Sort|Nested Loop|Seq Scan on|Merge Join|Hash Join|Hash|Index Scan using)', Keyword.Type),
             # strings
             (r"'(''|[^'])*'", String.Single),
             # numbers
