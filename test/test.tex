@@ -259,4 +259,18 @@
  Execution Time: 128.039 ms
 \end{queryplan}
 
+\begin{queryplan}{gather merge}
+ Merge Join  (cost=1002.35..8595.96 rows=1 width=16) (actual time=221.121..225.824 rows=3 loops=1)
+   Merge Cond: (foo.id = bar.id)
+   ->  Gather Merge  (cost=1000.45..30009.29 rows=4 width=8) (actual time=221.072..221.322 rows=4 loops=1)
+         Workers Planned: 2
+         Workers Launched: 2
+         ->  Parallel Index Scan using foo_pkey on foo  (cost=0.43..29008.80 rows=2 width=8) (actual time=72.653..142.791 rows=3 loops=3)
+               Filter: (a = ANY ('{1,2,3}'::integer[]))
+               Rows Removed by Filter: 369997
+   ->  Index Scan using bar_pkey on bar  (cost=0.29..318.29 rows=10000 width=8) (actual time=0.042..3.300 rows=10000 loops=1)
+ Planning Time: 0.871 ms
+ Execution Time: 225.952 ms
+\end{queryplan}
+
 \end{document}
