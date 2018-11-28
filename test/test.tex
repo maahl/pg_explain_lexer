@@ -5,9 +5,10 @@
 \usepackage{minted}
 \usemintedstyle{colorful}
 
-\newenvironment{queryplan}{
+\newenvironment{queryplan}[1]{
     \VerbatimEnvironment%
     \begin{listing}
+        \caption{#1}
         \begin{minted}[frame=lines, framesep=2mm, fontsize=\footnotesize]{../pg_explain_lexer.py:PgExplainLexer -x}}{%
         \end{minted}
     \end{listing}
@@ -15,7 +16,7 @@
 
 \begin{document}
 
-\begin{queryplan}
+\begin{queryplan}{merge join}
                                                                   QUERY PLAN
 -----------------------------------------------------------------------------------------------------------------------------------------------
  Merge Join  (cost=0.62..1351.74 rows=8893 width=302) (actual time=0.130..45.729 rows=8897 loops=1)
@@ -28,7 +29,7 @@
  Execution Time: 52.293 ms
 \end{queryplan}
 
-\begin{queryplan}
+\begin{queryplan}{nested loop + sort}
                                                     QUERY PLAN
 -----------------------------------------------------------------------------------------------------------------------------
  Sort  (cost=7224521.31..7224543.54 rows=8893 width=302) (actual time=111918.890..111919.623 rows=8897 loops=1)
@@ -45,7 +46,7 @@
  Execution Time: 111925.339 ms
 \end{queryplan}
 
-\begin{queryplan}
+\begin{queryplan}{hash join}
                                                             QUERY PLAN
 -----------------------------------------------------------------------------------------------------------------------------------
  Sort  (cost=1575.48..1590.32 rows=5934 width=304) (actual time=33.584..34.200 rows=5936 loops=1)
@@ -63,7 +64,7 @@
  Execution Time: 40.343 ms
 \end{queryplan}
 
-\begin{queryplan}
+\begin{queryplan}{multiple conditions in filter}
                                                         QUERY PLAN
 --------------------------------------------------------------------------------------------------------------------------
  Hash Join  (cost=797.61..1070.96 rows=342 width=298) (actual time=23.955..40.346 rows=348 loops=1)
