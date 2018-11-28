@@ -138,4 +138,29 @@
  Execution Time: 18.919 ms
 \end{queryplan}
 
+\begin{queryplan}{left join}
+                                                                     QUERY PLAN
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=143.31..182.10 rows=6 width=401) (actual time=6.445..6.501 rows=10 loops=1)
+   ->  Nested Loop Left Join  (cost=143.31..182.04 rows=6 width=401) (actual time=6.443..6.496 rows=10 loops=1)
+         ->  Hash Join  (cost=143.18..180.58 rows=6 width=475) (actual time=6.412..6.425 rows=10 loops=1)
+               Hash Cond: ((s.starelid = c.oid) AND (s.staattnum = a.attnum))
+               ->  Seq Scan on pg_statistic s  (cost=0.00..32.67 rows=467 width=349) (actual time=0.011..0.012 rows=10 loops=1)
+               ->  Hash  (cost=128.57..128.57 rows=974 width=142) (actual time=6.390..6.390 rows=2922 loops=1)
+                     Buckets: 4096 (originally 1024)  Batches: 1 (originally 1)  Memory Usage: 529kB
+                     ->  Hash Join  (cost=23.90..128.57 rows=974 width=142) (actual time=0.394..4.966 rows=2922 loops=1)
+                           Hash Cond: (a.attrelid = c.oid)
+                           Join Filter: has_column_privilege(c.oid, a.attnum, 'select'::text)
+                           ->  Seq Scan on pg_attribute a  (cost=0.00..96.61 rows=3061 width=70) (actual time=0.006..1.253 rows=2922 loops=1)
+                                 Filter: (NOT attisdropped)
+                           ->  Hash  (cost=18.95..18.95 rows=396 width=72) (actual time=0.378..0.378 rows=396 loops=1)
+                                 Buckets: 1024  Batches: 1  Memory Usage: 49kB
+                                 ->  Seq Scan on pg_class c  (cost=0.00..18.95 rows=396 width=72) (actual time=0.007..0.243 rows=396 loops=1)
+                                       Filter: ((NOT relrowsecurity) OR (NOT row_security_active(oid)))
+         ->  Index Scan using pg_namespace_oid_index on pg_namespace n  (cost=0.13..0.16 rows=1 width=68) (actual time=0.003..0.003 rows=1 loops=10)
+               Index Cond: (oid = c.relnamespace)
+ Planning Time: 3.761 ms
+ Execution Time: 8.801 ms
+\end{queryplan}
+
 \end{document}
