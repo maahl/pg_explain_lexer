@@ -20,7 +20,7 @@ class PgExplainLexer(RegexLexer):
             # operator arguments or details
             (r'(Sort Method|Join Filter|Rows Removed by Join Filter|Rows Removed by Filter|Planning Time|Execution Time|Heap Fetches|Heap Blocks|Workers (Planned|Launched)|never executed)', Comment.Preproc),
             # simple keywords
-            (r'(Sort|Nested Loop Left Join|Nested Loop|Merge Join|Hash Right Join|Hash Join|Hash|Limit|(Finalize |Partial )?Aggregate|Materialize|Gather( Merge )?)', Keyword.Type),
+            (r'(Sort|Nested Loop Left Join|Nested Loop|Merge Join|Hash Right Join|(Parallel )?Hash Join|(Parallel )?Hash|Limit|(Finalize |Partial )?Aggregate|Materialize|Gather( Merge )?)', Keyword.Type),
             # strings
             (r"'(''|[^'])*'", String.Single),
             # numbers

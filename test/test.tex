@@ -273,4 +273,22 @@
  Execution Time: 225.952 ms
 \end{queryplan}
 
+\begin{queryplan}{parallel hash join}
+                                                               QUERY PLAN
+-----------------------------------------------------------------------------------------------------------------------------------------
+ Gather  (cost=119887.82..232027.23 rows=55050 width=16) (actual time=2701.114..5316.387 rows=5505000 loops=1)
+   Workers Planned: 2
+   Workers Launched: 2
+   ->  Parallel Hash Join  (cost=118887.82..225522.23 rows=22938 width=16) (actual time=2690.280..4270.563 rows=1835000 loops=3)
+         Hash Cond: (bar.id = foo.id)
+         ->  Parallel Seq Scan on bar  (cost=0.00..94592.18 rows=4587518 width=8) (actual time=0.035..567.615 rows=3670000 loops=3)
+         ->  Parallel Hash  (cost=118598.50..118598.50 rows=23146 width=8) (actual time=1370.159..1370.159 rows=1851667 loops=3)
+               Buckets: 131072 (originally 65536)  Batches: 64 (originally 1)  Memory Usage: 4480kB
+               ->  Parallel Seq Scan on foo  (cost=0.00..118598.50 rows=23146 width=8) (actual time=0.029..777.546 rows=1851667 loops=3)
+                     Filter: ((a % 2) = 1)
+                     Rows Removed by Filter: 1851667
+ Planning Time: 0.845 ms
+ Execution Time: 5554.032 ms
+\end{queryplan}
+
 \end{document}
