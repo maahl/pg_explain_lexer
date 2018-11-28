@@ -23,5 +23,16 @@ tested.
 pygmentize -l pg_explain_lexer.py:PgExplainLexer -x <(psql -c "EXPLAIN ANALYZE SELECT count(*) FROM pg_class;")
 ```
 
+Or in your .psqlrc:
+```
+\set color '\\g |pygmentize -l ~/projects/pg_explain_lexer/pg_explain_lexer.py:PgExplainLexer -x'
+```
+
+You can then color the explain output directly from psql, by replacing the
+trailing semicolon with `:color`
+```
+EXPLAIN ANALYZE SELECT * FROM customers :color
+```
+
 If you notice a pygments error (an unhandled case), please open an issue and
 post your EXPLAIN plan with the error.
