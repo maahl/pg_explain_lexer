@@ -65,21 +65,13 @@
 \end{queryplan}
 
 \begin{queryplan}{multiple conditions in filter}
-                                                        QUERY PLAN
---------------------------------------------------------------------------------------------------------------------------
- Hash Join  (cost=797.61..1070.96 rows=342 width=298) (actual time=23.955..40.346 rows=348 loops=1)
-   Hash Cond: (o.customerid = c.customerid)
-   ->  Seq Scan on orders o  (cost=0.00..250.00 rows=8893 width=30) (actual time=0.032..12.290 rows=8897 loops=1)
-         Filter: (netamount > '100'::numeric)
-         Rows Removed by Filter: 3103
-   ->  Hash  (cost=788.00..788.00 rows=769 width=268) (actual time=23.830..23.830 rows=776 loops=1)
-         Buckets: 1024  Batches: 1  Memory Usage: 158kB
-         ->  Seq Scan on customers c  (cost=0.00..788.00 rows=769 width=268) (actual time=0.083..23.204 rows=776 loops=1)
-               Filter: ((age < 20) OR (age = 22))
-               Rows Removed by Filter: 19224
- Planning Time: 1.171 ms
- Execution Time: 44.070 ms
-
+                                                  QUERY PLAN
+--------------------------------------------------------------------------------------------------------------
+ Seq Scan on customers c  (cost=0.00..788.00 rows=769 width=268) (actual time=0.101..10.838 rows=776 loops=1)
+   Filter: ((age < 20) OR (age = 22))
+   Rows Removed by Filter: 19224
+ Planning Time: 0.233 ms
+ Execution Time: 11.107 ms
 \end{queryplan}
 
 \end{document}
