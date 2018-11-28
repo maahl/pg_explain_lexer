@@ -237,4 +237,26 @@
  Execution Time: 0.161 ms
 \end{queryplan}
 
+\begin{queryplan}{parallel gather}
+                                     QUERY PLAN
+-------------------------------------------------------------------------------------
+ Gather  (cost=1000.00..217018.43 rows=1 width=97)
+   Workers Planned: 2
+   ->  Parallel Seq Scan on pgbench_accounts  (cost=0.00..216018.33 rows=1 width=97)
+         Filter: (filler ~~ '%x%'::text)
+\end{queryplan}
+
+\begin{queryplan}{partial aggregate}
+                                                              QUERY PLAN
+--------------------------------------------------------------------------------------------------------------------------------------
+ Finalize Aggregate  (cost=11597.40..11597.41 rows=1 width=4) (actual time=124.383..124.383 rows=1 loops=1)
+   ->  Gather  (cost=11597.19..11597.40 rows=2 width=4) (actual time=124.261..127.909 rows=3 loops=1)
+         Workers Planned: 2
+         Workers Launched: 2
+         ->  Partial Aggregate  (cost=10597.19..10597.20 rows=1 width=4) (actual time=117.534..117.534 rows=1 loops=3)
+               ->  Parallel Seq Scan on foo  (cost=0.00..9460.15 rows=454815 width=4) (actual time=0.025..67.197 rows=370000 loops=3)
+ Planning Time: 0.289 ms
+ Execution Time: 128.039 ms
+\end{queryplan}
+
 \end{document}
