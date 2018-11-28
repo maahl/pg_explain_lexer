@@ -204,4 +204,23 @@
  Execution Time: 0.996 ms
 \end{queryplan}
 
+\begin{queryplan}{bitmap heap scan}
+                                                              QUERY PLAN
+--------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=12520.13..12542.37 rows=8893 width=302) (actual time=70.046..70.841 rows=8897 loops=1)
+   Sort Key: c.customerid
+   Sort Method: quicksort  Memory: 2817kB
+   ->  Nested Loop  (cost=0.30..11936.82 rows=8893 width=302) (actual time=0.096..58.465 rows=8897 loops=1)
+         ->  Seq Scan on orders o  (cost=0.00..250.00 rows=8893 width=30) (actual time=0.035..6.143 rows=8897 loops=1)
+               Filter: (netamount > '100'::numeric)
+               Rows Removed by Filter: 3103
+         ->  Bitmap Heap Scan on customers c  (cost=0.30..1.31 rows=1 width=268) (actual time=0.004..0.004 rows=1 loops=8897)
+               Recheck Cond: (customerid = o.customerid)
+               Heap Blocks: exact=8897
+               ->  Bitmap Index Scan on customers_pkey  (cost=0.00..0.30 rows=1 width=0) (actual time=0.003..0.003 rows=1 loops=8897)
+                     Index Cond: (customerid = o.customerid)
+ Planning Time: 0.781 ms
+ Execution Time: 76.834 ms
+\end{queryplan}
+
 \end{document}

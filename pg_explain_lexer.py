@@ -10,14 +10,15 @@ class PgExplainLexer(RegexLexer):
     tokens = {
         'root': [
             (r'(\s+|:|\(|\)|ms|kB|->|\.\.)', Punctuation),
-            (r'(cost=|rows=|width=|loops=|time=|actual|Memory Usage|Memory|Buckets|Batches|originally)', Comment.Single),
+            (r'(cost=|rows=|width=|loops=|time=|exact=|actual|Memory Usage|Memory|Buckets|Batches|originally)', Comment.Single),
             (r'(Sort Key)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
             (r'(Sort Method)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
-            (r'(Join Filter|Filter|Merge Cond|Hash Cond|Index Cond)(: )', bygroups(Comment.Preproc, Punctuation), 'predicate'),
-            (r'Seq Scan on ', Keyword.Type, 'object_name'),
+            (r'(Join Filter|Filter|Merge Cond|Hash Cond|Index Cond|Recheck Cond)(: )', bygroups(Comment.Preproc, Punctuation), 'predicate'),
+            (r'Seq Scan on |Bitmap Heap Scan on |Bitmap Index Scan on ', Keyword.Type, 'object_name'),
+            # "using" operators
             (r'(Index Scan using |Index Only Scan using )(\w+(?:\.\w+)*)( on )', bygroups(Keyword.Type, Name.Variable, Keyword.Type), 'object_name'),
             # operator arguments or details
-            (r'(Sort Method|Join Filter|Rows Removed by Join Filter|Rows Removed by Filter|Planning Time|Execution Time|Heap Fetches)', Comment.Preproc),
+            (r'(Sort Method|Join Filter|Rows Removed by Join Filter|Rows Removed by Filter|Planning Time|Execution Time|Heap Fetches|Heap Blocks)', Comment.Preproc),
             # simple keywords
             (r'(Sort|Nested Loop Left Join|Nested Loop|Merge Join|Hash Right Join|Hash Join|Hash|Limit|Aggregate|Materialize)', Keyword.Type),
             # strings
