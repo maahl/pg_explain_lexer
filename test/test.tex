@@ -172,4 +172,15 @@
  Execution Time: 5.895 ms
 \end{queryplan}
 
+\begin{queryplan}{materialize}
+                                                     QUERY PLAN
+--------------------------------------------------------------------------------------------------------------------
+ Nested Loop  (cost=0.00..1650315.00 rows=100000000 width=16) (actual time=0.241..30211.690 rows=100000000 loops=1)
+   ->  Seq Scan on foo  (cost=0.00..145.00 rows=10000 width=8) (actual time=0.121..3.643 rows=10000 loops=1)
+   ->  Materialize  (cost=0.00..235.00 rows=10000 width=8) (actual time=0.001..1.454 rows=10000 loops=10000)
+         ->  Seq Scan on bar  (cost=0.00..145.00 rows=10000 width=8) (actual time=0.112..1.599 rows=10000 loops=1)
+ Planning Time: 0.829 ms
+ Execution Time: 33763.432 ms
+\end{queryplan}
+
 \end{document}

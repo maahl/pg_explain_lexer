@@ -17,7 +17,7 @@ class PgExplainLexer(RegexLexer):
             (r'Seq Scan on ', Keyword.Type, 'object_name'),
             (r'(Index Scan using )(\w+(?:\.\w+)*)( on )', bygroups(Keyword.Type, Name.Variable, Keyword.Type), 'object_name'),
             (r'(Sort Method|Join Filter|Rows Removed by Join Filter|Rows Removed by Filter|Planning Time|Execution Time)', Comment.Preproc),
-            (r'(Sort|Nested Loop Left Join|Nested Loop|Seq Scan on|Merge Join|Hash Right Join|Hash Join|Hash|Index Scan using|Limit|Aggregate)', Keyword.Type),
+            (r'(Sort|Nested Loop Left Join|Nested Loop|Seq Scan on|Merge Join|Hash Right Join|Hash Join|Hash|Index Scan using|Limit|Aggregate|Materialize)', Keyword.Type),
             # strings
             (r"'(''|[^'])*'", String.Single),
             # numbers
