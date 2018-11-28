@@ -29,7 +29,18 @@
  Execution Time: 52.293 ms
 \end{queryplan}
 
-\begin{queryplan}{nested loop + sort}
+\begin{queryplan}{sort}
+                                                   QUERY PLAN
+-----------------------------------------------------------------------------------------------------------------
+ Sort  (cost=1033.04..1063.04 rows=12000 width=30) (actual time=9.572..10.531 rows=12000 loops=1)
+   Sort Key: orderdate
+   Sort Method: quicksort  Memory: 1416kB
+   ->  Seq Scan on orders  (cost=0.00..220.00 rows=12000 width=30) (actual time=0.024..3.182 rows=12000 loops=1)
+ Planning Time: 1.529 ms
+ Execution Time: 11.672 ms
+\end{queryplan}
+
+\begin{queryplan}{nested loop}
                                                     QUERY PLAN
 -----------------------------------------------------------------------------------------------------------------------------
  Sort  (cost=7224521.31..7224543.54 rows=8893 width=302) (actual time=111918.890..111919.623 rows=8897 loops=1)
