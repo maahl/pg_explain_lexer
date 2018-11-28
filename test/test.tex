@@ -163,4 +163,13 @@
  Execution Time: 8.801 ms
 \end{queryplan}
 
+\begin{queryplan}{aggregate}
+                                                   QUERY PLAN
+----------------------------------------------------------------------------------------------------------------
+ Aggregate  (cost=250.00..250.01 rows=1 width=8) (actual time=5.717..5.717 rows=1 loops=1)
+   ->  Seq Scan on orders  (cost=0.00..220.00 rows=12000 width=0) (actual time=0.025..3.280 rows=12000 loops=1)
+ Planning Time: 0.172 ms
+ Execution Time: 5.895 ms
+\end{queryplan}
+
 \end{document}
