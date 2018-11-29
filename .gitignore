@@ -1,3 +1,5 @@
-test/_minted-test
-test/test.aux
-test/test.log
+test/_minted-*
+test/*.aux
+test/*.log
+test/postgres_regress.tex
+test/postgres_regress.pdf

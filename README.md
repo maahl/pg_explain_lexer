@@ -7,7 +7,7 @@ See [the tests output](test/test.pdf) for an example of how it looks.
 
 ## Limitations
 
-This has only been tested for Latex output, with only one Pygments style 
+This has only been tested for Latex output, with only one Pygments style
 (colorful), and has been made to look good only with that theme.
 
 The type of the tokens has been chosen to make something that looks good, not
@@ -36,3 +36,13 @@ EXPLAIN ANALYZE SELECT * FROM customers :color
 
 If you notice a pygments error (an unhandled case), please open an issue and
 post your EXPLAIN plan with the error.
+
+## Testing
+
+The `import_postgres_query_plans.py` script retrieves all the query plans
+expected as output in postgresql's regression tests, and generates a latex file
+with all of them.
+To generate the pdf:
+```
+make test-regress POSTGRES_DIR=~/projects/postgresql
+```
