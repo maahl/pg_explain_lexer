@@ -23,7 +23,7 @@ tested.
 pygmentize -l pg_explain_lexer.py:PgExplainLexer -x <(psql -c "EXPLAIN ANALYZE SELECT count(*) FROM pg_class;")
 ```
 
-Or in your .psqlrc:
+For a single psql session:
 ```
 \set color '\\g |pygmentize -l ~/projects/pg_explain_lexer/pg_explain_lexer.py:PgExplainLexer -x'
 ```
@@ -33,6 +33,18 @@ trailing semicolon with `:color`
 ```
 EXPLAIN ANALYZE SELECT * FROM customers :color
 ```
+
+Or if you want the output to always be colored when explaining queries, put this
+in your .psqlrc:
+
+```
+\pset pager always
+\setenv PAGER '{ IFS= read -r line; if echo "$line" | grep -q "QUERY PLAN"; then pygmentize -l ~/projects/pg_explain_lexer/pg_explain_lexer.py:PgExplainLexer -x <<<$(printf "%s\n%s" "$line" "$(cat)"); else less <<<$(printf "%s\n%s" "$line" "$(cat)"); fi }'
+```
+
+This ugly one-liner detects if the output is a query plan. If yes, it sends it
+to pygmentize for coloring; otherwise it calls your usual pager (`less` in this
+example).
 
 If you notice a pygments error (an unhandled case), please open an issue and
 post your EXPLAIN plan with the error.
