@@ -306,4 +306,23 @@
                            Index Cond: (hundred > 1)
 \end{queryplan}
 
+\begin{queryplan}{merge append and parenthesized expressions}
+                     QUERY PLAN
+-----------------------------------------------------
+ Merge Join
+   Merge Cond: ((((ec1_1.ff + 2) + 1)) = ec1.f1)
+   ->  Merge Append
+         Sort Key: (((ec1_1.ff + 2) + 1))
+         ->  Index Scan using ec1_expr2 on ec1 ec1_1
+         ->  Sort
+               Sort Key: (((ec1_2.ff + 3) + 1))
+               ->  Seq Scan on ec1 ec1_2
+         ->  Index Scan using ec1_expr4 on ec1 ec1_3
+   ->  Sort
+         Sort Key: ec1.f1 USING <
+         ->  Index Scan using ec1_pkey on ec1
+               Index Cond: (ff = '42'::bigint)
+(13 rows)
+\end{queryplan}
+
 \end{document}
