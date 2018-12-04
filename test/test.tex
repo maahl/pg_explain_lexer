@@ -325,4 +325,20 @@
 (13 rows)
 \end{queryplan}
 
+\begin{queryplan}{append}
+                     QUERY PLAN
+-----------------------------------------------------
+ Nested Loop
+   ->  Index Scan using ec1_pkey on ec1
+         Index Cond: (ff = '42'::bigint)
+   ->  Append
+         ->  Index Scan using ec1_expr2 on ec1 ec1_1
+               Index Cond: (((ff + 2) + 1) = ec1.f1)
+         ->  Seq Scan on ec1 ec1_2
+               Filter: (((ff + 3) + 1) = ec1.f1)
+         ->  Index Scan using ec1_expr4 on ec1 ec1_3
+               Index Cond: ((ff + 4) = ec1.f1)
+(10 rows)
+\end{queryplan}
+
 \end{document}
