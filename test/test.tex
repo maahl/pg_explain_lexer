@@ -360,4 +360,29 @@
 (13 rows)
 \end{queryplan}
 
+\begin{queryplan}{hash full join}
+                                               QUERY PLAN
+---------------------------------------------------------------------------------------------------------
+ Nested Loop
+   ->  Hash Full Join
+         Hash Cond: (COALESCE(a.q1, '0'::bigint) = COALESCE(b.q2, '-1'::bigint))
+         ->  Seq Scan on int8_tbl a
+         ->  Hash
+               ->  Seq Scan on int8_tbl b
+   ->  Index Scan using tenk1_unique2 on tenk1 c
+         Index Cond: (unique2 = COALESCE((COALESCE(a.q1, '0'::bigint)), (COALESCE(b.q2, '-1'::bigint))))
+(8 rows)
+\end{queryplan}
+
+\begin{queryplan}{hash left join}
+           QUERY PLAN
+---------------------------------
+ Hash Left Join
+   Hash Cond: (p.k = c.k)
+   ->  Seq Scan on parent p
+   ->  Hash
+         ->  Seq Scan on child c
+(5 rows)
+\end{queryplan}
+
 \end{document}
