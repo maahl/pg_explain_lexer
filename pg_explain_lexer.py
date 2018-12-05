@@ -42,6 +42,8 @@ class PgExplainLexer(RegexLexer):
             (r'\(', Punctuation, 'expression'),
             (r'\)', Punctuation, '#pop'),
             (r'\w+(\.\w+)*( USING \S+| \w+ USING \S+| \w)?', Name.Variable),
+            # if we encounter a comma, another object is listed
+            (r', ', Punctuation, 'object_name'),
             (r'', Punctuation, '#pop'),
         ],
         'predicate': [
