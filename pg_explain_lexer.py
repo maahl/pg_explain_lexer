@@ -11,7 +11,7 @@ class PgExplainLexer(RegexLexer):
         'root': [
             (r'(\s+|:|\(|\)|ms|kB|->|\.\.)', Punctuation),
             (r'(cost=|rows=|width=|loops=|time=|exact=|actual|Memory Usage|Memory|Buckets|Batches|originally|rows)', Comment.Single),
-            (r'(Sort Key)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
+            (r'(Sort Key|Group Key)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
             (r'(Sort Method)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
             (r'(Join Filter|Filter|Merge Cond|Hash Cond|Index Cond|Recheck Cond)(: )', bygroups(Comment.Preproc, Punctuation), 'predicate'),
             (r'(Parallel )?Seq Scan on |(Parallel )?Bitmap Heap Scan on |Bitmap Index Scan on |Subquery Scan on ', Keyword.Type, 'object_name'),

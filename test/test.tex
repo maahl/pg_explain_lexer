@@ -397,4 +397,13 @@
 (6 rows)
 \end{queryplan}
 
+\begin{queryplan}{group key}
+      QUERY PLAN
+----------------------
+ HashAggregate
+   Group Key: a, b
+   ->  Seq Scan on t1
+(3 rows)
+\end{queryplan}
+
 \end{document}
