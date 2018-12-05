@@ -46,7 +46,7 @@ if __name__ == '__main__':
 \\newenvironment{queryplan}[1]{
     \VerbatimEnvironment%
     \\begin{listing}
-        \caption{queryplan #1}
+        \caption{#1}
         \\begin{minted}[frame=lines, framesep=2mm, fontsize=\\footnotesize]{../pg_explain_lexer.py:PgExplainLexer -x}}{%
         \end{minted}
     \end{listing}
@@ -56,7 +56,7 @@ if __name__ == '__main__':
 
 ''')
         for i, qp in enumerate(query_plans):
-            f.write('\\begin{queryplan}{' + str(i) + '}\n')
+            f.write('\\begin{queryplan}{query plan ' + str(i) + '}\n')
             f.write(qp)
             f.write('\end{queryplan}\n\n')
             # add a \clearpage every couple of plans to force latex to process
