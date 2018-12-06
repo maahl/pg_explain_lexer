@@ -24,7 +24,7 @@ class PgExplainLexer(RegexLexer):
             # strings
             (r"'(''|[^'])*'", String.Single),
             # numbers
-            (r'[0-9]+(\.[0-9]+)?', Name.Literal),
+            (r'[0-9]+(\.[0-9]+)?', Generic.Strong),
             # explain header
             (r'\s*QUERY PLAN\s*\n-+', Comment.Single),
         ],

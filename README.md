@@ -11,7 +11,7 @@ This has only been tested for Latex output, with only one Pygments style
 (colorful), and has been made to look good only with that theme.
 
 The type of the tokens has been chosen to make something that looks good, not
-for the semantics; for example, the numbers are displayed using Name.Literal
+for the semantics; for example, the numbers are displayed using Generic.Strong
 instead of Number.Integer, just because it looks better.
 
 Only the output of "EXPLAIN ANALYZE" is handled, no other options have been
