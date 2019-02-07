@@ -406,4 +406,26 @@
 (3 rows)
 \end{queryplan}
 
+\begin{queryplan}{insert}
+                                        QUERY PLAN
+-------------------------------------------------------------------------------------------
+ Insert on foo  (cost=0.00..0.01 rows=1 width=8) (actual time=0.146..0.146 rows=0 loops=1)
+   ->  Result  (cost=0.00..0.01 rows=1 width=8) (actual time=0.075..0.075 rows=1 loops=1)
+ Planning Time: 0.112 ms
+ Execution Time: 0.286 ms
+(4 rows)
+\end{queryplan}
+
+\begin{queryplan}{projectset}
+                                                       QUERY PLAN
+------------------------------------------------------------------------------------------------------------------------
+ Insert on foo  (cost=0.00..20.02 rows=1000 width=8) (actual time=63.772..63.772 rows=0 loops=1)
+   ->  Subquery Scan on "*SELECT*"  (cost=0.00..20.02 rows=1000 width=8) (actual time=0.077..14.366 rows=10000 loops=1)
+         ->  ProjectSet  (cost=0.00..5.02 rows=1000 width=4) (actual time=0.006..1.616 rows=10000 loops=1)
+               ->  Result  (cost=0.00..0.01 rows=1 width=0) (actual time=0.001..0.001 rows=1 loops=1)
+ Planning Time: 0.114 ms
+ Execution Time: 63.950 ms
+(6 rows)
+\end{queryplan}
+
 \end{document}
