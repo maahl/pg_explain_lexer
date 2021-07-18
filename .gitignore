@@ -3,3 +3,4 @@ test/*.aux
 test/*.log
 test/postgres_regress.tex
 test/postgres_regress.pdf
+__pycache__

@@ -51,6 +51,17 @@ example).
 If you notice a pygments error (an unhandled case), please open an issue and
 post your EXPLAIN plan with the error.
 
+## Colorize auto_explain output in logs
+
+A wrapper script is provided, that will apply syntax highlighting to SQL queries and their plan output by the auto_explain extension.
+
+```
+tail -f postgresql.log | ./colorize_plans_in_logs.py --sql-style=colorful --explain-style=autumn
+```
+
+The style options are Pygments styles, adjust them if the colors are unreadable or if you don't like them.
+You need to have the click python package installed, you can install it with `pip install -r requirements.txt`.
+
 ## Testing
 
 The `import_postgres_query_plans.py` script retrieves all the query plans
