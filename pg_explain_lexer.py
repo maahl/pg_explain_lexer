@@ -14,13 +14,13 @@ class PgExplainLexer(RegexLexer):
             (r'(Sort Key|Group Key)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
             (r'(Sort Method)(: )', bygroups(Comment.Preproc, Punctuation), 'object_name'),
             (r'(Join Filter|Filter|Merge Cond|Hash Cond|Index Cond|Recheck Cond)(: )', bygroups(Comment.Preproc, Punctuation), 'predicate'),
-            (r'(Parallel )?Seq Scan on |(Parallel )?Bitmap Heap Scan on |Bitmap Index Scan on |Subquery Scan on |Insert on ', Keyword.Type, 'object_name'),
+            (r'(Parallel )?Seq Scan on |(Parallel )?Bitmap Heap Scan on |Bitmap Index Scan on |Subquery Scan on |Insert on |Function Scan on ', Keyword.Type, 'object_name'),
             # "using" operators
             (r'((?:Parallel )?Index (?:Only )?Scan using )(\w+(?:\.\w+)*)( on )', bygroups(Keyword.Type, Name.Variable, Keyword.Type), 'object_name'),
             # operator arguments or details
             (r'(Sort Method|Join Filter|Rows Removed by Join Filter|Rows Removed by Filter|Planning time|Planning Time|Execution time|Execution Time|Heap Fetches|Heap Blocks|Workers (Planned|Launched)|never executed)', Comment.Preproc),
             # simple keywords
-            (r'(Sort|Nested Loop Left Join|Nested Loop|Merge Join|Hash (Right|Left|Full) Join|(Parallel )?Hash Join|(Parallel )?Hash|Limit|(Finalize |Partial )?Aggregate|Materialize|Gather( Merge)?)|(Merge )?Append|Result|ProjectSet', Keyword.Type),
+            (r'(Sort|Nested Loop Left Join|Nested Loop|Merge Join|Hash (Right|Left|Full) Join|(Parallel )?Hash Join|(Parallel )?Hash|Limit|(Finalize |Partial )?Aggregate|Materialize|Gather( Merge)?)|(Merge )?Append|Result|ProjectSet|Unique', Keyword.Type),
             # strings
             (r"'(''|[^'])*'", String.Single),
             # numbers
