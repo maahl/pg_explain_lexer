@@ -20,8 +20,10 @@ tested.
 ## Usage
 
 ```
-pygmentize -l pg_explain_lexer.py:PgExplainLexer -x <(psql -c "EXPLAIN ANALYZE SELECT count(*) FROM pg_class;")
+pygmentize -0 style=autumn -l pg_explain_lexer.py:PgExplainLexer -x <(psql -c "EXPLAIN ANALYZE SELECT count(*) FROM pg_class;")
 ```
+
+Adjust the style argument if the colors are unreadable or if you don't like them.
 
 For a single psql session:
 ```
