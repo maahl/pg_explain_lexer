@@ -1,3 +1,9 @@
+**Note: this repository is deprecated**
+
+Thanks to @anayrat, this is now included in pygments, changes should be made
+there. See [here](https://github.com/pygments/pygments/pull/2398)
+
+
 # Postgres EXPLAIN lexer
 
 This is a custom [Pygments](http://pygments.org/) lexer for coloring the output
